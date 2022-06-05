@@ -1,0 +1,1 @@
+const button=document.querySelector(".btn"),button2=document.querySelector(".card");
