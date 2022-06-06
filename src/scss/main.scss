@@ -12,6 +12,14 @@
 	line-height: 1.5rem;
 }
 
+@mixin xMark {
+	content: "";
+	position: absolute;
+	height: 2px;
+	width: 18px;
+	background-color: $color-text;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -89,41 +97,46 @@ body {
 }
 
 .open {
-	display: flex !important;
 	opacity: 1 !important;
-	// transform: translateY(0) !important;
 }
 
 .overlay {
 	display: none;
 	position: absolute;
-	opacity: 0;
-	transition: opacity 0.2s linear;
-	top: 0;
-	left: 0;
-	z-index: 1;
 	width: 100%;
 	height: 100%;
+
+	top: 0;
+	left: 0;
+
+	opacity: 0;
+	z-index: 1;
 	background: $color-dark;
+
 	overflow: hidden;
+	transition: opacity 0.2s linear;
 }
 
 .popup {
-	display: none;
 	justify-content: space-between;
+
+	display: none;
+	position: absolute;
 	width: 920px;
 	height: 210px;
 
-	position: absolute;
 	top: 50%;
 	left: 50%;
 
+	opacity: 0;
+	z-index: 2;
+
 	font-family: $font-main;
-	color: black;
+	color: $color-text;
 	background-color: $color-background;
 
+	transition: opacity 0.2s linear;
 	transform: translate(-50%, -50%);
-	z-index: 2;
 
 	&__content {
 		display: flex;
@@ -133,7 +146,7 @@ body {
 	}
 
 	&__title {
-		@include textBig();
+		@include textBig;
 	}
 
 	&__text {
@@ -141,30 +154,27 @@ body {
 	}
 
 	&__btn {
-		background-color: $color-secondary;
-		border: none;
-		width: 1.5rem;
-		height: 1.5rem;
-		margin: 2.5rem 2.5rem 0 0;
-		@include textBig();
-		cursor: pointer;
+		@extend .testimony__btn;
+		display: none;
 
-		&::before {
-			content: "";
-			position: absolute;
-			height: 2px;
-			width: 18px;
-			background-color: $color-text;
-			transform: translateX(-9px) rotate(45deg);
-		}
+		&--close {
+			background-color: $color-secondary;
+			border: none;
+			width: 1.5rem;
+			height: 1.5rem;
+			margin: 2.5rem 2.5rem 0 0;
+			@include textBig();
+			cursor: pointer;
 
-		&::after {
-			content: "";
-			position: absolute;
-			height: 2px;
-			width: 18px;
-			background-color: $color-text;
-			transform: translateX(-9px) rotate(-45deg);
+			&::before {
+				@include xMark;
+				transform: translateX(-9px) rotate(45deg);
+			}
+
+			&::after {
+				@include xMark;
+				transform: translateX(-9px) rotate(-45deg);
+			}
 		}
 	}
 }
