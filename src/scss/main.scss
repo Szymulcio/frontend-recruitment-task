@@ -26,6 +26,10 @@
 	box-sizing: border-box;
 }
 
+body {
+	height: 100vh;
+}
+
 .card {
 	position: relative;
 	width: 100%;
@@ -40,18 +44,18 @@
 
 	background: $color-background;
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 1025px) {
 		flex-direction: row;
 		align-items: normal;
 		gap: $margin-medium;
 	}
 
 	&__image-wrapper {
-		margin-top: $margin-small;
+		margin: $margin-small $margin-small / 2 0;
 		display: flex;
 
-		@media screen and (min-width: 1024px) {
-			margin-top: $margin-medium;
+		@media screen and (min-width: 1025px) {
+			margin: $margin-medium 0 0;
 		}
 
 		img {
@@ -60,7 +64,7 @@
 			width: 100%;
 			object-fit: cover;
 
-			@media screen and (min-width: 1024px) {
+			@media screen and (min-width: 1025px) {
 				width: 505px;
 				height: 330px;
 			}
@@ -71,7 +75,7 @@
 .testimony {
 	height: 100%;
 	max-width: 380px;
-	padding: 0 2rem;
+	padding: 0 $margin-small / 2;
 
 	display: flex;
 	flex-direction: column;
@@ -80,7 +84,7 @@
 	font-family: $font-main;
 	color: $color-text;
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 1025px) {
 		margin-top: 136px;
 		padding: 0;
 		align-items: flex-start;
@@ -98,7 +102,7 @@
 
 		@include textSmall;
 
-		@media screen and (min-width: 1024px) {
+		@media screen and (min-width: 1025px) {
 			text-align: left;
 		}
 	}
@@ -128,9 +132,10 @@
 
 .overlay {
 	display: none;
-	position: absolute;
+	position: fixed;
 	width: 100vw;
 	height: 100vh;
+	top: 0;
 
 	opacity: 0;
 	z-index: 1;
@@ -143,36 +148,54 @@
 .popup {
 	justify-content: space-between;
 	flex-direction: column;
+	gap: $margin-small;
 
 	display: none;
 	position: absolute;
-	width: max-content;
+	width: auto;
 	height: max-content;
 
-	top: 50%;
-	left: 50%;
+	margin: $margin-small / 4;
+	padding: $margin-small / 2;
+
+	top: 10%;
 
 	opacity: 0;
 	z-index: 2;
 
 	font-family: $font-main;
-	font-size: 12px;
+	font-size: 10px;
 	color: $color-text;
 	background-color: $color-background;
 
 	transition: opacity 0.2s linear;
-	transform: translate(-50%, -50%);
+	// transform: translate(-50%, -50%);
+
+	@media screen and (min-width: 481px) {
+		margin: $margin-small;
+		padding: $margin-small;
+		font-size: 12px;
+	}
+
+	@media screen and (min-width: 1025px) {
+		flex-direction: row;
+		top: 30%;
+	}
 
 	&__content {
 		display: flex;
 		flex-direction: column;
 
 		&-container {
+			position: relative;
 			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			flex-direction: column;
+			align-items: normal;
+			gap: $margin-small;
 
-			margin: 2rem;
+			@media screen and (min-width: 1025px) {
+				align-items: center;
+			}
 		}
 	}
 
@@ -191,11 +214,15 @@
 		height: max-content;
 
 		&--close {
+			position: absolute;
+			top: 20px;
+			right: 0;
+
 			background-color: $color-secondary;
 			border: none;
 			width: 1.5rem;
 			height: 1.5rem;
-			// margin-right: 2.5rem;
+
 			@include textBig();
 			cursor: pointer;
 
@@ -213,15 +240,21 @@
 
 	&__data {
 		&-container {
-			margin: 2rem;
 			border-collapse: collapse;
 		}
 
 		&-cell {
-			padding: 4px;
+			padding: 2px;
 			border: 1px solid $color-text;
-			list-style: none;
-			word-wrap: break-word;
+			word-break: break-word;
+
+			@media screen and (min-width: 481px) {
+				padding: 4px;
+			}
+
+			&--adress {
+				word-break: break-word;
+			}
 		}
 	}
 }

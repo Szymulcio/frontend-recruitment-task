@@ -47,6 +47,11 @@ function updateCounter() {
 	counter.innerHTML = localStorage.timesClicked;
 }
 
+function hideResetButton() {
+	resetPopupBtn.style.display = "none";
+	resetPopupBtn.classList.remove("open");
+}
+
 async function getJSON(url) {
 	const response = await fetch(url);
 	return response.json();
@@ -65,16 +70,32 @@ async function renderPerson(data) {
 <tr class="popup__data-row">
     <td class="popup__data-cell">${data.name}</td>
     <td class="popup__data-cell">${data.email}</td>
-    <td class="popup__data-cell popup__data-cell--adress">
-        <li>${data.address.city}</li>
-        <li>${data.address.street}</li>
-        <li>${data.address.suite}</li>
+    <td class="popup__data-cell">
+		<table>
+			<tbody>
+				<tr>
+					<td class="popup__data-cell--adress">${data.address.city}</td>
+				</tr>
+				<tr>
+					<td class="popup__data-cell--adress">${data.address.street}</td>
+				</tr>
+				<tr>
+					<td class="popup__data-cell--adress">${data.address.suite}</td>
+				</tr>
+			</tbody>
+		</table>
     </td>     
     <td class="popup__data-cell">${data.phone}</td>
     <td class="popup__data-cell">${data.company.name}</td>
 </tr>`;
 
 	popupDataTable.insertAdjacentHTML("beforeend", html);
+}
+
+{
+	/* <li>${data.address.city}</li>
+        <li>${data.address.street}</li>
+        <li>${data.address.suite}</li> */
 }
 
 /////////////////////////
@@ -91,6 +112,7 @@ closePopupBtn.addEventListener("click", closePopup);
 resetPopupBtn.addEventListener("click", function () {
 	localStorage.timesClicked = -1;
 	updateCounter();
+	hideResetButton();
 
 	setTimeout(function () {
 		closePopup();
