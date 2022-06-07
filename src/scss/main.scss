@@ -34,7 +34,8 @@ body {
 	position: relative;
 	width: 100%;
 	max-width: 1440px;
-	margin: 0 auto $margin-small;
+	margin: auto;
+	padding-bottom: $margin-small;
 
 	display: flex;
 	flex-direction: column;
@@ -147,6 +148,7 @@ body {
 
 .popup {
 	justify-content: space-between;
+	align-items: center;
 	flex-direction: column;
 	gap: $margin-small;
 
@@ -169,7 +171,6 @@ body {
 	background-color: $color-background;
 
 	transition: opacity 0.2s linear;
-	// transform: translate(-50%, -50%);
 
 	@media screen and (min-width: 481px) {
 		margin: $margin-small;
@@ -193,9 +194,9 @@ body {
 			align-items: normal;
 			gap: $margin-small;
 
-			@media screen and (min-width: 1025px) {
-				align-items: center;
-			}
+			// @media screen and (min-width: 1025px) {
+			// 	align-items: center;
+			// }
 		}
 	}
 
@@ -256,5 +257,24 @@ body {
 				word-break: break-word;
 			}
 		}
+	}
+
+	&__loader {
+		margin: $margin-small;
+		border: 8px solid #f3f3f3; /* Light grey */
+		border-top: 8px solid #3498db; /* Blue */
+		border-radius: 50%;
+		width: 60px;
+		height: 60px;
+		animation: spin 1s linear infinite;
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

@@ -5,6 +5,7 @@ const popup = document.querySelector(".popup");
 const popupDataTable = document.querySelector(".popup__data-container tbody");
 const resetPopupBtn = document.querySelector(".popup__btn");
 const closePopupBtn = document.querySelector(".popup__btn--close");
+const popupLoader = document.querySelector(".popup__loader");
 const overlay = document.querySelector(".overlay");
 
 const counter = popup.querySelector("span");
@@ -30,6 +31,7 @@ function closePopup() {
 	setTimeout(function () {
 		overlay.style.display = "none";
 		popup.style.display = "none";
+		showLoader();
 	}, 200);
 }
 
@@ -52,14 +54,24 @@ function hideResetButton() {
 	resetPopupBtn.classList.remove("open");
 }
 
+function hideLoader() {
+	popupLoader.style.display = "none";
+	popup.style.alignItems = "normal";
+}
+
+function showLoader() {
+	popupLoader.style.display = "block";
+	popup.style.alignItems = "center";
+}
+
 async function getJSON(url) {
-	const response = await fetch(url);
-	return response.json();
+	return await fetch(url).then(response => response.json());
 }
 
 async function getPersonData(url) {
 	const data = await getJSON(url);
 
+	hideLoader();
 	for (const person of data) {
 		renderPerson(person);
 	}
@@ -90,12 +102,6 @@ async function renderPerson(data) {
 </tr>`;
 
 	popupDataTable.insertAdjacentHTML("beforeend", html);
-}
-
-{
-	/* <li>${data.address.city}</li>
-        <li>${data.address.street}</li>
-        <li>${data.address.suite}</li> */
 }
 
 /////////////////////////
