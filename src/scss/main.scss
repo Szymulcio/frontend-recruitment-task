@@ -26,55 +26,81 @@
 	box-sizing: border-box;
 }
 
-body {
-	display: flex;
-	height: 100vh;
-	width: 100vw;
-	background: #666666;
-}
-
 .card {
 	position: relative;
-	background: $color-background;
-	margin: auto;
-	width: 1440px;
-	height: 960px;
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto $margin-small;
 
-	display: grid;
-	grid-template-columns: repeat(2, auto);
-	grid-template-rows: max-content auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
+	gap: $margin-medium / 2;
 
-	&__image {
-		width: 505px;
-		height: 330px;
-		margin: 6rem 0 0 230px;
+	background: $color-background;
+
+	@media screen and (min-width: 1024px) {
+		flex-direction: row;
+		align-items: normal;
+		gap: $margin-medium;
+	}
+
+	&__image-wrapper {
+		margin-top: $margin-small;
+		display: flex;
+
+		@media screen and (min-width: 1024px) {
+			margin-top: $margin-medium;
+		}
+
+		img {
+			max-width: 505px;
+			height: auto;
+			width: 100%;
+			object-fit: cover;
+
+			@media screen and (min-width: 1024px) {
+				width: 505px;
+				height: 330px;
+			}
+		}
 	}
 }
 
 .testimony {
 	height: 100%;
+	max-width: 380px;
+	padding: 0 2rem;
 
 	display: flex;
 	flex-direction: column;
-
-	margin-left: 6rem;
-	margin-right: 230px;
+	align-items: center;
 
 	font-family: $font-main;
 	color: $color-text;
 
+	@media screen and (min-width: 1024px) {
+		margin-top: 136px;
+		padding: 0;
+		align-items: flex-start;
+	}
+
 	&__title {
-		margin-top: 8.5rem;
+		text-align: center;
 
 		@include textBig();
 	}
 
 	&__text {
-		margin-top: 1.5rem;
-		margin-bottom: 2rem;
+		margin: 1.5rem 0 2rem;
+		text-align: justify;
 
 		@include textSmall;
+
+		@media screen and (min-width: 1024px) {
+			text-align: left;
+		}
 	}
 
 	&__btn {
@@ -103,11 +129,8 @@ body {
 .overlay {
 	display: none;
 	position: absolute;
-	width: 100%;
-	height: 100%;
-
-	top: 0;
-	left: 0;
+	width: 100vw;
+	height: 100vh;
 
 	opacity: 0;
 	z-index: 1;
@@ -119,11 +142,12 @@ body {
 
 .popup {
 	justify-content: space-between;
+	flex-direction: column;
 
 	display: none;
 	position: absolute;
-	width: 920px;
-	height: 210px;
+	width: max-content;
+	height: max-content;
 
 	top: 50%;
 	left: 50%;
@@ -132,6 +156,7 @@ body {
 	z-index: 2;
 
 	font-family: $font-main;
+	font-size: 12px;
 	color: $color-text;
 	background-color: $color-background;
 
@@ -141,12 +166,19 @@ body {
 	&__content {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
-		margin: auto 0 auto 6rem;
+
+		&-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			margin: 2rem;
+		}
 	}
 
 	&__title {
 		@include textBig;
+		margin: 1rem 0;
 	}
 
 	&__text {
@@ -156,13 +188,14 @@ body {
 	&__btn {
 		@extend .testimony__btn;
 		display: none;
+		height: max-content;
 
 		&--close {
 			background-color: $color-secondary;
 			border: none;
 			width: 1.5rem;
 			height: 1.5rem;
-			margin: 2.5rem 2.5rem 0 0;
+			// margin-right: 2.5rem;
 			@include textBig();
 			cursor: pointer;
 
@@ -175,6 +208,20 @@ body {
 				@include xMark;
 				transform: translateX(-9px) rotate(-45deg);
 			}
+		}
+	}
+
+	&__data {
+		&-container {
+			margin: 2rem;
+			border-collapse: collapse;
+		}
+
+		&-cell {
+			padding: 4px;
+			border: 1px solid $color-text;
+			list-style: none;
+			word-wrap: break-word;
 		}
 	}
 }

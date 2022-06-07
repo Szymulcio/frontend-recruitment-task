@@ -2,6 +2,7 @@ const card = document.querySelector(".card");
 const testimonyBtn = document.querySelector(".testimony__btn");
 
 const popup = document.querySelector(".popup");
+const popupDataTable = document.querySelector(".popup__data-container tbody");
 const resetPopupBtn = document.querySelector(".popup__btn");
 const closePopupBtn = document.querySelector(".popup__btn--close");
 const overlay = document.querySelector(".overlay");
@@ -18,6 +19,8 @@ function openPopup() {
 		overlay.classList.add("open");
 		popup.classList.add("open");
 	}, 50);
+	popupDataTable.innerHTML = "";
+	getPersonData("https://jsonplaceholder.typicode.com/users");
 }
 
 function closePopup() {
@@ -43,6 +46,39 @@ function updateCounter() {
 	localStorage.timesClicked = Number(localStorage.timesClicked) + 1;
 	counter.innerHTML = localStorage.timesClicked;
 }
+
+async function getJSON(url) {
+	const response = await fetch(url);
+	return response.json();
+}
+
+async function getPersonData(url) {
+	const data = await getJSON(url);
+
+	for (const person of data) {
+		renderPerson(person);
+	}
+}
+
+async function renderPerson(data) {
+	const html = `
+<tr class="popup__data-row">
+    <td class="popup__data-cell">${data.name}</td>
+    <td class="popup__data-cell">${data.email}</td>
+    <td class="popup__data-cell popup__data-cell--adress">
+        <li>${data.address.city}</li>
+        <li>${data.address.street}</li>
+        <li>${data.address.suite}</li>
+    </td>     
+    <td class="popup__data-cell">${data.phone}</td>
+    <td class="popup__data-cell">${data.company.name}</td>
+</tr>`;
+
+	popupDataTable.insertAdjacentHTML("beforeend", html);
+}
+
+/////////////////////////
+//// EVENT LISTENERS ////
 
 testimonyBtn.addEventListener("click", function () {
 	openPopup();

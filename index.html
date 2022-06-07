@@ -12,7 +12,9 @@
 
 <body>
     <section class="card">
-        <img src="images/sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_c_scale,w_784.jpg" alt="image" class="card__image">
+        <div class="card__image-wrapper">
+            <img src="images/sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_c_scale,w_784.jpg" alt="image" class="card__image">
+        </div>
         <div class="testimony">
             <h1 class="testimony__title">Lorem Ipsum</h1>
             <p class="testimony__text">Infinitely scalable, feature-rich and cloud-native data management and protection for modern and legacy infrastructures and SaaS platforms,
@@ -22,12 +24,29 @@
         </div>
         <div class="overlay"></div>
         <div class="popup">
-            <div class="popup__content">
-                <h2 class="popup__title">Alert!</h2>
-                <p class="popup__text">You have clicked <span></span> times to related button</p>
+            <div class="popup__content-container">
+                <div class="popup__content">
+                    <h2 class="popup__title">Alert!</h2>
+                    <p class="popup__text">You have clicked <span></span> times to related button</p>
+                </div>
                 <button class="popup__btn">Reset</button>
+                <button class='popup__btn--close' type="button"></button>
             </div>
-            <button class='popup__btn--close' type="button"></button>
+            <table class="popup__data-container">
+                <tbody>
+                    <!-- <tr class="popup__data-row">
+                    <td class="popup__data-cell">${data.name}</td>
+                    <td class="popup__data-cell">${data.email}</td>
+                    <td class="popup__data-cell popup__data-cell--adress">
+                        <li>${data.address.city}</li>
+                        <li>${data.address.street}</li>
+                        <li>${data.address.suite}</li>
+                    </td>
+                    <td class="popup__data-cell">${data.phone}</td>
+                    <td class="popup__data-cell">${data.company.name}</td>
+                </tr> -->
+                </tbody>
+            </table>
         </div>
     </section>
 </body>
